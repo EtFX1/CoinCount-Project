@@ -1,7 +1,12 @@
 """ Loads up the coinCount.txt file"""
 from loadCoinCount import loadCoinCount
 
+print("Print a welcome message later")
+print()
+
 print(loadCoinCount())
+print()
+
 
 # * stores all of the volunteers' information
 volunteer_list = []
@@ -63,3 +68,43 @@ bags_weighed_incorrectly = 0
 
 # * stores the running total of the NUMBER of bags weighed CORRECTLY
 bags_weighed_correctly = 0
+
+
+# @! Handling the VOLUNTEER'S NAME
+
+while True:
+
+    # * collecting the volunteer’s name input
+    volunteer_name_input = input("Input volunteer name: ").title()
+
+    # * verifying that the user types in letters not numbers
+    if volunteer_name_input.isdigit():
+        print("Please type in an actual name, with letters!")
+        continue
+
+    print(f"Name accepted. Hello {volunteer_name_input}!")
+    print()
+    break
+
+# * checking if volunteer list is empty
+# ? ("[] is a falsy value, so not turns it to true)
+if not volunteer_list:
+
+    # * appending volunteer_name_input to volunteer list
+    volunteer_list.append({"Volunteer Name": volunteer_name_input})
+    print(volunteer_list)
+
+# * if volunteer_list is not empty
+# ? a list comprehension that iterates over the previous "Volunteer Name" keys in each dictionary in "volunteer_list"
+
+previous_volunteer_names = [dictionary["Volunteer Name"]
+                            for dictionary in volunteer_list]
+print(previous_volunteer_names)
+
+#! Greeting the user with "Volunteer Name"
+
+# * iterating over each name in previous_volunteer_names
+for name in previous_volunteer_names:
+    # * check if the volunteer_name_input equal to name (that means the user has stored their name previously)
+    if volunteer_name_input == name:
+        print(f"Hello again {name}!")
