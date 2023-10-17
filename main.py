@@ -9,10 +9,14 @@ print()
 
 
 # * stores all of the volunteers' information
+# todo: store in a separate module
 volunteer_list = []
 
+# * stores the current volunteer's information
+current_volunteer_info = []
+
 # * stores the information for each type of coin
-coin_information = [
+coins_information = [
     {
         "Coin Type (£)": 2,
         "Bag Value (£)": 20,
@@ -72,39 +76,84 @@ bags_weighed_correctly = 0
 
 # @! Handling the VOLUNTEER'S NAME
 
+#! Collection and verification of data type
 while True:
 
     # * collecting the volunteer’s name input
     volunteer_name_input = input("Input volunteer name: ").title()
 
     # * verifying that the user types in letters not numbers
-    if volunteer_name_input.isdigit():
+    if not volunteer_name_input.isalpha():
         print("Please type in an actual name, with letters!")
+        print()
         continue
-
-    print(f"Name accepted. Hello {volunteer_name_input}!")
+    print("Name accepted.")
     print()
     break
 
 # * checking if volunteer list is empty
-# ? ("[] is a falsy value, so not turns it to true)
+# ? ("[] is a falsy value, so not turns [] to true)
 if not volunteer_list:
 
-    # * appending volunteer_name_input to volunteer list
-    volunteer_list.append({"Volunteer Name": volunteer_name_input})
-    print(volunteer_list)
+    # * creating a dictionary to store information for a new user
+    current_volunteer_info.append({"Volunteer Name": volunteer_name_input})
+    print(f"Hello {volunteer_name_input}!")
+    print()
 
 # * if volunteer_list is not empty
-# ? a list comprehension that iterates over the previous "Volunteer Name" keys in each dictionary in "volunteer_list"
+else:
 
-previous_volunteer_names = [dictionary["Volunteer Name"]
-                            for dictionary in volunteer_list]
-print(previous_volunteer_names)
+    # * iterates over each dictionary in "volunteer_list"
+    for volunteer_info in volunteer_list:
 
-#! Greeting the user with "Volunteer Name"
+        # * volunteer's name
+        volunteer_name = volunteer_info["Volunteer Name"]
 
-# * iterating over each name in previous_volunteer_names
-for name in previous_volunteer_names:
-    # * check if the volunteer_name_input equal to name (that means the user has stored their name previously)
-    if volunteer_name_input == name:
-        print(f"Hello again {name}!")
+        # * checking if the user's name was previously stored in "volunteer_list"
+        if volunteer_name_input == volunteer_name:
+
+            # * if the user's name is found in volunteer_list, then we add their information (volunteer_info) to the "current_volunteer_info" list
+            current_volunteer_info.append(volunteer_info)
+            print(f"Welcome back {volunteer_name}! Here is your old data")
+            print(volunteer_info)
+        else:
+
+            # * if their name wasn't previously stored, then they are a new user, so we create a new dictionary to store their information
+            current_volunteer_info.append(
+                {"Volunteer Name": volunteer_name_input})
+
+            print(f"Hello {volunteer_name_input}!")
+
+            break
+
+
+# @! Handling the COIN TYPE INPUT
+
+#! Collection and verification of data type
+
+while True:
+    try:
+        # * collecting the coin type name input
+        coin_type_input = float(input("Input a coin type: "))
+
+    # * checking if the coin type input is not a number
+    except ValueError:
+        print("Please type in a number")
+        print()
+
+    else:
+        print("Coin type collected")
+        print()
+        break
+
+# * checking if "coin_type_input" is found in "coins_information"
+for coin_info in coins_information:
+    coin_type = (coin_info["Coin Type (£)"])
+
+    if coin_type_input == coin_type:
+        print("Coin type valid")
+        print()
+        print(coin_info)
+        break
+else:
+    print("invalid")
