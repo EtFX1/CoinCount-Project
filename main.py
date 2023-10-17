@@ -13,10 +13,11 @@ print()
 volunteer_list = []
 
 # * stores the current volunteer's information
+# todo: delete all the information inside here at the end of the program
 current_volunteer_info = []
 
 # * stores the information for each type of coin
-coins_information = [
+coins_info = [
     {
         "Coin Type (£)": 2,
         "Bag Value (£)": 20,
@@ -91,6 +92,8 @@ while True:
     print()
     break
 
+#! Appending the volunteer's name to current_volunteer_information
+
 # * checking if volunteer list is empty
 # ? ("[] is a falsy value, so not turns [] to true)
 if not volunteer_list:
@@ -144,16 +147,19 @@ while True:
     else:
         print("Coin type collected")
         print()
-        break
 
-# * checking if "coin_type_input" is found in "coins_information"
-for coin_info in coins_information:
-    coin_type = (coin_info["Coin Type (£)"])
+    # * checking if "coin_type_input" is found in "coins_information"
+    for coin_info in coins_info:
+        coin_type = (coin_info["Coin Type (£)"])
 
-    if coin_type_input == coin_type:
-        print("Coin type valid")
+        if coin_type_input == coin_type:
+            print("Coin type valid")
+            print()
+            break
+    else:
+        print("Coin type is invalid. Please try again")
         print()
-        print(coin_info)
-        break
-else:
-    print("invalid")
+        continue
+
+
+# # @! Handling the BAG WEIGHT INPUT
