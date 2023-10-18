@@ -13,9 +13,7 @@ print()
 volunteer_list = [
 ]
 
-# * stores the current volunteer's information
-# todo: delete all the information inside here at the end of the program
-# todo: change to a dictionary
+# * stores the current volunteer's information ("Volunteer Name", "Total Bags Weighed", "Number of bags counter correctly")
 current_volunteer_info = {}
 
 # * stores the information for each type of coin
@@ -74,7 +72,7 @@ bags_weighed_counter = 0
 # * stores the running total of the NUMBER of bags weighed INCORRECTLY
 bags_weighed_incorrectly = 0
 
-# * stores the running total of the NUMBER of bags weighed CORRECTLY
+# * stores the running total of the NUMBER of bags Counted CORRECTLY
 bags_weighed_correctly = 0
 
 
@@ -149,6 +147,7 @@ while True:
     except ValueError:
         print("Please type in a number")
         print()
+        continue
 
     # * iterating over the dictionaries in "coins_info_list"
     for coin_info in coin_info_list:
@@ -183,7 +182,8 @@ print()
 while True:
     try:
         # * collecting the bag weight name input
-        bag_weight_input = float(input("Input a bag weight: "))
+        bag_weight_input = float(
+            input(f"Input the bag weight for £{coin_type}: "))
         bags_weighed_counter += 1
 
     # * checking if the bag weight input is not a number
@@ -197,7 +197,7 @@ while True:
         print()
         break
 
-#! Appending bag weight input to current_volunteer_info
+#! Appending the total number of bags weighed to current_volunteer_info
 
 # * checking if "Total Bags Weighed" key is in "current_volunteer_info" (means that it has been previously stored)
 if "Total Bags Weighed" in current_volunteer_info:
@@ -217,8 +217,59 @@ print(current_volunteer_info)
 print()
 
 
-# #! Calculating the correct bag weight
-# number_of_coins_in_the_bag = bag_value / coin_type
-# bag_weight = (number_of_coins_in_the_bag) * coin_weight
+#! Calculating the correct bag weight
+number_of_coins_in_the_bag = bag_value / coin_type
+bag_weight = (number_of_coins_in_the_bag) * coin_weight
 
-# print(bag_weight)
+print(bag_weight)
+
+#! Calculating how many coins to be added or removed to correct an inaccurate bag weight
+
+# * checking if the user input a bag weight that's too large
+if bag_weight_input > bag_weight:
+
+    # * calculation of the coins to be added
+    surplus_bag_weight = (bag_weight_input - bag_weight)
+    coins_to_remove = surplus_bag_weight / coin_weight
+
+    print(f"{surplus_bag_weight}g")
+
+    print(f"You should remove {round(coins_to_remove)} coins (approx)")
+    bags_weighed_incorrectly += 1
+
+# * checking if the user input a bag weight that's too small
+
+elif bag_weight_input < bag_weight:
+
+    # * calculation of the coins to be to be removed
+
+    deficit_bag_weight = (bag_weight - bag_weight_input)
+    coins_to_add = deficit_bag_weight / coin_weight
+
+    print(f"{deficit_bag_weight}g")
+    print(f"You should add {round(coins_to_add)} coins (approx)")
+    bags_weighed_incorrectly += 1
+
+# * if the user has a correct bag weight
+else:
+    bags_weighed_correctly += 1
+    print("You have entered the correct bag weight")
+    print()
+#! Appending the bag weight input to current_volunteer_info
+
+# * checking if "Bags Counted Correctly" key is in "current_volunteer_info" (means that it has been previously stored)
+if "Bags Counted Correctly" in current_volunteer_info:
+
+    # ? we update the old "Bags Counted Correctly" key value
+    # * assigning the "bags_weighed_counter" value to the "Total Bags Weighed"
+    current_volunteer_info["Bags Counted Correctly"] = bags_weighed_correctly
+
+# * checking if "Bags Counted Correctly" key is not in "current_volunteer_info" (means that it has been previously stored)
+else:
+
+    # ? we create a "Bags Counted Correctly" key value
+    current_volunteer_info.update(
+        {"Bags Counted Correctly": bags_weighed_correctly})
+
+print(current_volunteer_info)
+print()
