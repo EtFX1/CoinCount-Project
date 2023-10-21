@@ -1,79 +1,28 @@
-""" Loads up the coinCount.txt file"""
-from loadCoinCount import loadCoinCount
+"""Loads CoinCount.txt"""
+from load.load_coin_count import loadCoinCount
+
+# * stores information about each coin
+from stored.coin_info_list import coin_info_list
+
+from volunteer_utils.append import appendVolunteerName
+
+from volunteer_utils.append import appendBagsCountedCorrectly
+
+from volunteer_utils.append import appendNumberOfBagsCounted
 
 print("Print a welcome message later")
 print()
 
+# * text file that stores all the user's information
 print(loadCoinCount())
 print()
 
+# * stores volunteer's information
+volunteer_list = []
 
-# * stores all of the volunteers' information
-# todo: store in a separate module
-volunteer_list = [
-]
-
-# * stores the current volunteer's information ("Volunteer Name", "Total Bags Weighed", "Number of bags counter correctly")
+# * stores the current volunteer's information
 current_volunteer_info = {}
-
-# * stores the information for each type of coin
-coin_info_list = [
-    {
-        "Coin Type (£)": 0.01,
-        "Bag Value (£)": 1,
-        "Coin Weight (g)": 3.56
-    },
-    {
-        "Coin Type (£)": 0.02,
-        "Bag Value (£)": 1,
-        "Coin Weight (g)": 7.12
-    },
-    {
-        "Coin Type (£)": 0.05,
-        "Bag Value (£)": 5,
-        "Coin Weight (g)": 2.35
-    },
-    {
-        "Coin Type (£)": 0.10,
-        "Bag Value (£)": 5,
-        "Coin Weight (g)": 6.50
-    },
-    {
-        "Coin Type (£)": 0.20,
-        "Bag Value (£)": 10,
-        "Coin Weight (g)": 5.00
-    },
-    {
-        "Coin Type (£)": 0.50,
-        "Bag Value (£)": 10,
-        "Coin Weight (g)": 8.00
-    },
-    {
-        "Coin Type (£)": 1,
-        "Bag Value (£)": 20,
-        "Coin Weight (g)": 8.75
-    },
-    {
-        "Coin Type (£)": 2,
-        "Bag Value (£)": 20,
-        "Coin Weight (g)": 12
-    }
-]
-
-#!Initialising counter variables to 0
-
-# * stores the running total of the VALUE of bags weighed
-
-bags_value_counter = 0
-
-# * stores the running total of the NUMBER of bags weighed
-bags_weighed_counter = 0
-
-# * stores the running total of the NUMBER of bags weighed INCORRECTLY
-bags_weighed_incorrectly = 0
-
-# * stores the running total of the NUMBER of bags Counted CORRECTLY
-bags_weighed_correctly = 0
+# todo: display nicely
 
 
 # @! Handling the VOLUNTEER'S NAME
@@ -82,9 +31,8 @@ bags_weighed_correctly = 0
 while True:
 
     # * collecting the volunteer’s name input
+    # todo: ignore the spaces the user types
     volunteer_name_input = input("Input volunteer name: ").title()
-
-    #! Collection of volunteer name input's data type
 
     # * verifying that the user types in letters not numbers
     if not volunteer_name_input.isalpha():
@@ -95,181 +43,201 @@ while True:
     print()
     break
 
-#! Appending the volunteer's name to current_volunteer_information
-# * checking if volunteer list is empty
-# ? ("[] is a falsy value, so not turns [] to true)
-if not volunteer_list:
 
-    # * creating a dictionary to store information for a new user
-    current_volunteer_info.update({"Volunteer Name": volunteer_name_input})
-    print(f"Hello {volunteer_name_input}!")
-    print()
-
-# * if volunteer_list is not empty
-else:
-
-    #
-    # * iterating over the dictionaries in volunteer_list (that contain previously stored information)
-    for volunteer_info in volunteer_list:
-
-        # * extracting the volunteer's name key-value from each dictionary
-        volunteer_name = volunteer_info["Volunteer Name"]
-
-        # ? checking if the previously stored volunteer name matches the current volunteer name input
-        if volunteer_name == volunteer_name_input:
-
-            # * greeting the user and showing them their previously stored data
-            print(f"Welcome back {volunteer_name}! Here is your previous data")
-            current_volunteer_info = volunteer_info
-            break
-
-        # ? runs if "volunteer_name_input" is NOT found in volunteer
-        else:
-
-            # * creating a dictionary to store information for a new user
-            current_volunteer_info["Volunteer Name"] = volunteer_name_input
-
-print(current_volunteer_info)
+# * calling function that appends volunteer name to current_volunteer_info
+print(appendVolunteerName(current_volunteer_info,
+      volunteer_list, volunteer_name_input))
 print()
 
 # @! Handling the COIN TYPE INPUT
 
 #! Collection of coin type input
 
-while True:
-    try:
-        # * collecting the coin type name input
-        coin_type_input = float(input("Input a coin type: "))
 
-    #! verification of coin type input data type
+def handleCoinTypeInput():
+    while True:
+        try:
+            # * collecting the coin type name input
+            coin_type_input = float(input("Input a coin type: £"))
 
-    # * checking if the coin type input is not a number
-    except ValueError:
-        print("Please type in a number")
-        print()
-        continue
+        #! verification of coin type input data type
 
-    # * iterating over the dictionaries in "coins_info_list"
-    for coin_info in coin_info_list:
-
-        # * extracting and storing the coin type, bag value and coin Weight
-        coin_type = coin_info["Coin Type (£)"]
-        bag_value = coin_info["Bag Value (£)"]
-        coin_weight = coin_info["Coin Weight (g)"]
-
-        # * checking if "coin_type_input" is found in "coin_info_list"
-        if coin_type_input == coin_type:
-            print("Coin type valid")
+        # * checking if the coin type input is not a number
+        except ValueError:
+            print("Please type in a number")
             print()
-            print("Information about the coin you picked:")
-            print(coin_info)
-            break
+            continue
 
-    # * checking if the coin type is not found in "coins_info_list"
-    else:
-        print("Coin type is invalid. Please try again")
-        print()
-        continue
-    break
+        # * iterating over the dictionaries in "coins_info_list"
+        for coin_info in coin_info_list:
 
-print()
+            # * extracting and storing the coin type, bag value and coin Weight
+            coin_type = coin_info["Coin Type (£)"]
+            bag_value = coin_info["Bag Value (£)"]
+            coin_weight = coin_info["Coin Weight (g)"]
 
-# @! Handling the BAG WEIGHT INPUT
+            # * checking if "coin_type_input" is found in "coin_info_list"
+            if coin_type_input == coin_type:
+                print("Coin type valid")
+                print()
+                print("Information about the coin you picked:")
+                print(coin_info)
+                print()
+                break
 
+        # * checking if the coin type is not found in "coins_info_list"
+        else:
+            print("Coin type is invalid. Please try again")
+            print()
+            continue
 
-#! Collection and verification of data type
-
-while True:
-    try:
-        # * collecting the bag weight name input
-        bag_weight_input = float(
-            input(f"Input the bag weight for £{coin_type}: "))
-        bags_weighed_counter += 1
-
-    # * checking if the bag weight input is not a number
-    except ValueError:
-        print("Please type in a number")
-        print()
-
-    # * if the input is valid (if its a number, then print confirmation message)
-    else:
-        print("Bag Weight collected")
-        print()
-        break
-
-#! Appending the total number of bags weighed to current_volunteer_info
-
-# * checking if "Total Bags Weighed" key is in "current_volunteer_info" (means that it has been previously stored)
-if "Total Bags Weighed" in current_volunteer_info:
-
-    # ? we update the old "Total Bags Weighed" key value
-    # * assigning the "bags_weighed_counter" value to the "Total Bags Weighed"
-    current_volunteer_info["Total Bags Weighed"] = bags_weighed_counter
-    print("updated")
-
-# * checking if "Total Bags Weighed" key is not in "current_volunteer_info" (means that it has been previously stored)
-else:
-
-    # ? we create a "Total Bags Weighed" key value
-    current_volunteer_info.update({"Total Bags Weighed": bags_weighed_counter})
-
-print(current_volunteer_info)
-print()
+        return coin_type, bag_value, coin_weight
 
 
-#! Calculating the correct bag weight
+coin_type, bag_value, coin_weight = handleCoinTypeInput()
+
+
+# @! Calculating the correct bag weight
 number_of_coins_in_the_bag = bag_value / coin_type
 bag_weight = (number_of_coins_in_the_bag) * coin_weight
 
-print(bag_weight)
+
+# @! Handling the BAG WEIGHT INPUT
 
 #! Calculating how many coins to be added or removed to correct an inaccurate bag weight
 
-# * checking if the user input a bag weight that's too large
-if bag_weight_input > bag_weight:
+bag_weight_variables = {
+    "Bags Counted": 0,
+    "Bags Value Counter": 0,
+    "Incorrect Weight Inputs": 0,
+    "Bags Counted Correctly": 0
+}
 
-    # * calculation of the coins to be added
-    surplus_bag_weight = (bag_weight_input - bag_weight)
-    coins_to_remove = surplus_bag_weight / coin_weight
 
-    print(f"{surplus_bag_weight}g")
+def handleBagWeightInput(bag_weight, coin_type, coin_weight, bag_value, current_volunteer_info, bag_weight_variables):
 
-    print(f"You should remove {round(coins_to_remove)} coins (approx)")
-    bags_weighed_incorrectly += 1
+    bags_counted = bag_weight_variables["Bags Counted"]
+    bags_value_counter = bag_weight_variables["Bags Value Counter"]
+    bags_counted_correctly = bag_weight_variables["Bags Counted Correctly"]
+    incorrect_weight_inputs = bag_weight_variables["Incorrect Weight Inputs"]
 
-# * checking if the user input a bag weight that's too small
+    user_trying_again = 0
 
-elif bag_weight_input < bag_weight:
+    # @! Collect and verify bag weight input
+    while True:
 
-    # * calculation of the coins to be to be removed
+        # * Collecting bag weight input
+        try:
 
-    deficit_bag_weight = (bag_weight - bag_weight_input)
-    coins_to_add = deficit_bag_weight / coin_weight
+            bag_weight_input = float(
+                input(f"Input the bag weight for £{coin_type} (g): "))
 
-    print(f"{deficit_bag_weight}g")
-    print(f"You should add {round(coins_to_add)} coins (approx)")
-    bags_weighed_incorrectly += 1
+        # * verifying the data type of bag weight input
+        except ValueError:
+            print("Please type in a number")
+            print()
+            continue
 
-# * if the user has a correct bag weight
-else:
-    bags_weighed_correctly += 1
-    print("You have entered the correct bag weight")
-    print()
-#! Appending the bag weight input to current_volunteer_info
+        # * Input is valid (a number)
+        print("Bag Weight Accepted")
+        print()
 
-# * checking if "Bags Counted Correctly" key is in "current_volunteer_info" (means that it has been previously stored)
-if "Bags Counted Correctly" in current_volunteer_info:
+        # * Checking if the user input a bag weight that's too large
+        if bag_weight_input > bag_weight:
 
-    # ? we update the old "Bags Counted Correctly" key value
-    # * assigning the "bags_weighed_counter" value to the "Total Bags Weighed"
-    current_volunteer_info["Bags Counted Correctly"] = bags_weighed_correctly
+            # ? calculating number of coins that should be removed
+            surplus_bag_weight = bag_weight_input - bag_weight
+            coins_to_remove = surplus_bag_weight / coin_weight
 
-# * checking if "Bags Counted Correctly" key is not in "current_volunteer_info" (means that it has been previously stored)
-else:
+            print(f"You are {surplus_bag_weight}g over the limit. You should remove {
+                  round(coins_to_remove, 1)} £{coin_type} coins (approx")
 
-    # ? we create a "Bags Counted Correctly" key value
-    current_volunteer_info.update(
-        {"Bags Counted Correctly": bags_weighed_correctly})
+            incorrect_weight_inputs += 1
+            user_trying_again += 1
+
+            print("Type in the correct bag weight")
+            print()
+            continue
+
+        # * Checking if the user input a bag weight that's too small
+        if bag_weight_input < bag_weight:
+
+            # ? calculating number of coins that should be added
+            deficit_bag_weight = bag_weight - bag_weight_input
+            coins_to_add = deficit_bag_weight / coin_weight
+
+            print(f"You are {deficit_bag_weight}g under the limit. You should add {
+                  round(coins_to_add, 1)} £{coin_type} coins (approx)")
+
+            incorrect_weight_inputs += 1
+            user_trying_again += 1
+
+            print("Type in the correct bag weight")
+            print()
+            continue
+
+        # * Comes here if has entered the correct bag weight
+
+        if bag_weight_input == bag_weight:
+            bags_counted += 1
+            bags_counted_correctly += 1
+            bags_value_counter += bag_value
+        if user_trying_again >= 1:
+            bags_counted_correctly = 0
+
+        print("You have entered the correct bag weight")
+
+        # Update the values in the bag_weight_variables dictionary (to ensure they wont be set back to 0)
+        bag_weight_variables["Bags Counted"] = bags_counted
+        bag_weight_variables["Bags Value Counter"] = bags_value_counter
+        bag_weight_variables["Incorrect Weight Inputs"] = incorrect_weight_inputs
+        print(f"Incorrect Weight Inputs: {incorrect_weight_inputs}")
+        bag_weight_variables["Bags Counted Correctly"] = bags_counted_correctly
+
+        # * Append the number of bags counted correctly to current_volunteer_info
+        current_volunteer_info = appendBagsCountedCorrectly(
+            current_volunteer_info, bags_counted_correctly)
+
+        # * Append the total number of bags counted to current_volunteer_info
+        current_volunteer_info = appendNumberOfBagsCounted(
+            current_volunteer_info, bags_counted)
+
+        print()
+        break
+
+    # * returns the counter variables for use outside the function
+    return bags_value_counter, incorrect_weight_inputs, bags_counted_correctly, bags_counted
+
+
+# * Calling the handleBagWeightInput function and capturing the return variables
+bags_value_counter, bags_counted_incorrectly, bags_counted_correctly, bags_counted = handleBagWeightInput(
+    bag_weight, coin_type, coin_weight, bag_value, current_volunteer_info, bag_weight_variables)
+
 
 print(current_volunteer_info)
 print()
+
+
+# @! Asking the user if they want to weigh another bag
+while True:
+    user_response = input("Do you want to weigh another bag?: ").title()
+
+    if user_response == "Yes":
+        print()
+        handleCoinTypeInput()
+
+        # * Calling the handleBagWeightInput function and capturing the return variables
+
+        bags_value_counter, bags_counted_incorrectly, bags_counted_correctly, bags_counted = handleBagWeightInput(
+            bag_weight, coin_type, coin_weight, bag_value, current_volunteer_info, bag_weight_variables)
+
+        print(current_volunteer_info)
+
+    if user_response == "No":
+        print("Moving on")
+        break
+    else:
+        print("Please type in 'Yes' or 'No'")
+        continue
+
+print("")
