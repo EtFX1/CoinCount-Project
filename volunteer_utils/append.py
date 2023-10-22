@@ -28,7 +28,7 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
                 current_volunteer_info = volunteer_info
                 break
 
-            # ? runs if "volunteer_name_input" is NOT found in volunteer
+            # ? comes here if "volunteer_name_input" is NOT found in volunteer
             else:
 
                 # * creating a dictionary to store information for a new user
@@ -64,8 +64,6 @@ def appendNumberOfBagsCounted(current_volunteer_info, bags_counted):
         # ? we update the old "Total Bags Weighed" key value
         # * assigning the "bags_counted" value to the "Total Bags Weighed"
         current_volunteer_info["Number of Bags Counted"] = bags_counted
-        print("updated")
-
     # * checking if "Total Bags Weighed" key is not in "current_volunteer_info" (means that it has been previously stored)
     else:
 
