@@ -1,5 +1,5 @@
 #! Reading from CoinCount.txt
-# * """CoinCount.txt contains all user data """
+# * """Updates CoinCount.txt with the contents of volunteer_list """
 
 def updateCoinCount(volunteer_list):
     with open("CoinCount.txt", "a", encoding="utf-8") as file_handler:

@@ -24,12 +24,14 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
 
                 # * greeting the user and showing them their previously stored data
                 print(
-                    f"Welcome back {volunteer_name}! Here is your previous data")
+                    f"Welcome back {volunteer_name}! Here is your previous data:")
+                print()
 
                 # * setting the "volunteer_info" in "current_volunteer_info"
                 current_volunteer_info = volunteer_info
-                break
+                print(current_volunteer_info)
 
+                break
             # ? comes here if "volunteer_name_input" is NOT found in volunteer
             else:
 

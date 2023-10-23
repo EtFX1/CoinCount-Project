@@ -3,6 +3,8 @@ from load.load_coin_count import loadCoinCount
 
 from load.update_coin_count import updateCoinCount
 
+from load.read_from_coin_count import readFromCoinCount
+
 # * stores information about each coin
 from stored.coin_info_list import coins_data
 
@@ -23,8 +25,12 @@ print(loadCoinCount())
 print()
 
 # todo: add the contents of CoinCount.txt to volunteer_list (in one of the functions)
+
 # * stores volunteer's information
-volunteer_list = []
+
+
+volunteer_list = readFromCoinCount()
+print(volunteer_list)
 
 # * stores the current volunteer's information
 current_volunteer_info = {}
@@ -39,7 +45,7 @@ def handleNameInput():
 
         # * collecting the volunteer’s name input
         # todo: ignore the spaces the user types
-        volunteer_name_input = input("Input volunteer name: ").title()
+        volunteer_name_input = input("Input volunteer name: ").title().strip()
 
         # * verifying that the user types in letters not numbers
         if not volunteer_name_input.isalpha():
@@ -63,12 +69,13 @@ volunteer_name_input = handleNameInput()
 
 
 def handleCoinTypeInput():
+    print()
     #! Collection of coin type input
 
     while True:
         try:
             # * collecting the coin type name input
-            coin_type_input = float(input("Input a coin type: £"))
+            coin_type_input = float(input("Input a coin type: £").strip())
 
         #! verification of coin type input data type
 
@@ -147,7 +154,7 @@ def handleBagWeightInput(coin_type, coin_weight, bag_value, current_volunteer_in
         # * Collecting bag weight input
         try:
             bag_weight_input = float(
-                input(f"Input the bag weight for a £{coin_type} coin (g): "))
+                input(f"Input the bag weight for a £{coin_type} coin (g): ").strip())
 
         # * verifying the data type of bag weight input
         except ValueError:
@@ -245,7 +252,8 @@ print(current_volunteer_info)
 
 def weighAnotherBag(bags_counted, bags_value_counter):
     while True:
-        user_response1 = input("Do you want to weigh another bag?: ").title()
+        user_response1 = input(
+            "Do you want to weigh another bag? (Type a 'Yes' or 'No'): ").title().strip()
 
         if user_response1 == "Yes":
             print()
@@ -266,14 +274,12 @@ def weighAnotherBag(bags_counted, bags_value_counter):
     # @! Ask the user if they want to see the number of bags checked
     while True:
         user_response2 = input(
-            "Do you want see the number of bags checked so far (and their total value)?: ").title()
+            "Do you want see the number of bags checked so far and their total value (Type a 'Yes' or 'No')?: ").title().strip()
 
         if user_response2 == "Yes":
             print()
-            print(f"Number of bags checked: {
+            return (f"Number of bags checked: {
                 bags_counted} | Total Value: £{bags_value_counter}")
-            print()
-            break
         elif user_response2 == "No":
             return ("Moving on")
         else:
@@ -303,7 +309,7 @@ def handleUserAccuracy(current_volunteer_info):
 
         volunteer_list.sort(key=sortBy, reverse=True)
 
-    return sortList()
+    print(sortList())
 
 
 print(handleUserAccuracy(current_volunteer_info))
@@ -314,7 +320,7 @@ print(handleUserAccuracy(current_volunteer_info))
 def addAnotherVolunteer():
     while True:
         user_response4 = input(
-            "Do you want to add another volunteer?: ").title()
+            "Do you want to add another volunteer? (Type a 'Yes' or 'No'): ").title().strip()
         if user_response4 == "Yes":
             print()
             print(handleNameInput())
@@ -326,13 +332,12 @@ def addAnotherVolunteer():
 
             print(weighAnotherBag(bags_counted, bags_value_counter))
 
-            print(displayFinalList())
+            print(handleUserAccuracy(current_volunteer_info))
 
-            break
+            return (displayFinalList())
 
         elif user_response4 == "No":
-            print("Moving on")
-            break
+            return ("Moving on")
         else:
             print("Please type in 'Yes' or 'No'")
             continue
@@ -341,8 +346,9 @@ def addAnotherVolunteer():
 def displayFinalList():
     while True:
         user_response3 = input(
-            "Do you want see the final volunteer list (sorted by accuracy in descending order): ").title()
+            "Do you want see the final volunteer list sorted by accuracy in descending order? (Type a 'Yes' or 'No'): ").title().strip()
         if user_response3 == "Yes":
+            print()
 
             # @! Adding the current_volunteer_info to the volunteer list
 
@@ -350,8 +356,7 @@ def displayFinalList():
             print(volunteer_list)
 
             # @! Updating Coin count
-            print(updateCoinCount(volunteer_list))
-
+            return (updateCoinCount(volunteer_list))
         elif user_response3 == "No":
             print("Bye for now!")
             break
@@ -359,7 +364,7 @@ def displayFinalList():
             print("Please type in 'Yes' or 'No'")
             continue
 
-    return addAnotherVolunteer()
+    return (addAnotherVolunteer())
 
 
 print(displayFinalList())
