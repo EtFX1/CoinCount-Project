@@ -1,4 +1,4 @@
-coin_info_list = [
+coins_data = [
     {
         "Coin Type (£)": 0.01,
         "Bag Value (£)": 1,
