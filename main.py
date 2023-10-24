@@ -16,6 +16,8 @@ from volunteer_utils.append import appendNumberOfBagsCounted
 
 from volunteer_utils.append import appendVolunteerAccuracy
 
+from pprint import pprint
+
 print("Welcome to the coin counter!")
 print()
 
@@ -23,8 +25,6 @@ print("Previously Stored Data:")
 # * text file that stores all the user's information
 print(loadCoinCount())
 print()
-
-# todo: add the contents of CoinCount.txt to volunteer_list (in one of the functions)
 
 # * stores volunteer's information
 
@@ -175,7 +175,7 @@ def handleBagWeightInput(coin_type, coin_weight, bag_value, current_volunteer_in
 
             incorrect_weight_inputs += 1
 
-            print(f"You are {surplus_bag_weight}g over the limit. You should remove {
+            print(f"You are {surplus_bag_weight}g over the correct bag weight. You should remove {
                   round(coins_to_remove, 1)} more £{coin_type} coins (approx")
 
             print("Type in the correct bag weight")
@@ -191,7 +191,7 @@ def handleBagWeightInput(coin_type, coin_weight, bag_value, current_volunteer_in
 
             incorrect_weight_inputs += 1
 
-            print(f"You are {deficit_bag_weight}g under the limit. You should add {
+            print(f"You are {deficit_bag_weight}g under the correct bag weight. You should add {
                   round(coins_to_add, 1)} more £{coin_type} coins (approx)")
 
             print("Type in the correct bag weight")
@@ -245,7 +245,7 @@ def handleBagWeightInput(coin_type, coin_weight, bag_value, current_volunteer_in
 bags_value_counter, bags_counted_correctly, bags_counted = handleBagWeightInput(
     coin_type, coin_weight, bag_value, current_volunteer_info)
 
-print(current_volunteer_info)
+pprint(current_volunteer_info, indent=1)
 
 
 # @! Asking the user if they want to weigh another bag
@@ -353,7 +353,7 @@ def displayFinalList():
             # @! Adding the current_volunteer_info to the volunteer list
 
             volunteer_list.append(current_volunteer_info)
-            print(volunteer_list)
+            pprint(volunteer_list, indent=1)
 
             # @! Updating Coin count
             return (updateCoinCount(volunteer_list))
@@ -368,3 +368,8 @@ def displayFinalList():
 
 
 print(displayFinalList())
+
+# todo: remove all "None"
+# todo: add x-args
+# todo: fix bug that doesn't allow the name to be shown when the same user comes back
+# todo: perfect statements
