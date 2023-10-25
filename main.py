@@ -1,4 +1,9 @@
 """Loads CoinCount.txt"""
+
+from pprint import pprint
+
+from collections import OrderedDict
+
 from load.load_coin_count import loadCoinCount
 
 from load.update_coin_count import updateCoinCount
@@ -15,7 +20,10 @@ from volunteer_utils.append import appendNumberOfBagsCounted
 
 from volunteer_utils.append import appendVolunteerAccuracy
 
-from pprint import pprint
+from volunteer_utils.extra_functions import viewBagsChecked
+
+
+# from collections import OrderedDict
 
 print("Welcome to the coin counter!")
 print()
@@ -33,7 +41,7 @@ print()
 # print(volunteer_list)
 
 # * stores the current volunteer's information
-current_volunteer_info = {}
+current_volunteer_info = OrderedDict()
 # todo: display nicely
 
 # @! Handling the VOLUNTEER'S NAME
@@ -259,7 +267,7 @@ pprint(current_volunteer_info, indent=1)
 
 # @! Asking the user if they want to weigh another bag
 
-def weighAnotherBag():
+def weighAnotherBag(bags_value_counter, bags_counted):
 
     while True:
         print()
@@ -270,10 +278,11 @@ def weighAnotherBag():
         if user_response1 == "Yes":
             coin_type, bag_value, coin_weight = handleCoinTypeInput()
 
-            # ? redefining and storing the returned variables so that they can be globally accessed in the program [also passing the new variables for coin_type, bag_value, coin_weight explicitly to handleBagWeightInput(), because by default functions access and modify global variables, and the variables above aren't changed globally]
+            # ? [ passing the new variables for coin_type, bag_value, coin_weight explicitly to handleBagWeightInput(), because by default functions access and modify global variables, and the variables above aren't changed globally]
 
             bags_value_counter, bags_counted_correctly, bags_counted = handleBagWeightInput(
                 coin_type, bag_value, coin_weight)
+
             pprint(current_volunteer_info, indent=1)
 
         elif user_response1 == "No":
@@ -284,23 +293,15 @@ def weighAnotherBag():
             print("Please type in 'Yes' or 'No'")
             continue
 
-    # @! Ask the user if they want to see the number of bags checked
-    while True:
-        user_response2 = input(
-            "Do you want see the number of bags checked so far and their total value (Type a 'Yes' or 'No')?: ").title().strip()
+    # todo: debug error here
+    # *  Calling function that Asks the user if they want to see the number of bags checked (and their total value)
+    print(viewBagsChecked(bags_value_counter, bags_counted))
 
-        if user_response2 == "Yes":
-            print()
-            return (f"Number of bags checked: {
-                bags_counted} | Total Value: £{bags_value_counter}")
-        elif user_response2 == "No":
-            return ("Moving on")
-        else:
-            print("Please type in 'Yes' or 'No'")
-            continue
+    return bags_value_counter, bags_counted
 
 
-print(weighAnotherBag())
+bags_value_counter, bags_counted = weighAnotherBag(
+    bags_value_counter, bags_counted)
 
 
 # @! Calculating the user accuracy
