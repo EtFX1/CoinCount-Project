@@ -1,6 +1,8 @@
 import os
 import json
 
+# * copies the contents of "CoinCount.txt" to the "volunteer_list" list (CoinCount.txt is not empty)
+
 
 def readFromCoinCount():
     volunteer_list = []
@@ -11,6 +13,6 @@ def readFromCoinCount():
         with open("CoinCount.txt", "r", encoding="utf-8") as file:
             volunteer_list = json.load(file)
     else:
-        print("no data has been input yet")
+        print("No data has been input yet")
 
     return volunteer_list

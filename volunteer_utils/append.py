@@ -44,13 +44,15 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
 # todo (in future): write a function to handle all of these
 def appendBagsCountedCorrectly(current_volunteer_info, volunteer_name_input, volunteer_list, bags_counted_correctly):
 
-    # * checking if "Bags Counted Correctly" key is in "current_volunteer_info" (means that it has been previously stored)
+    #!Updating the user's data in "current_volunteer_info" and "volunteer_info" if the data has been previously stored
+
+    # ? checking if "Bags Counted Correctly" key is in "current_volunteer_info" (means that it has been previously stored)
     if "Bags Counted Correctly" in current_volunteer_info:
 
-        # * updating current volunteer info
+        # * updating current volunteer info with the value of "bags_counted_correctly"
         current_volunteer_info["Bags Counted Correctly"] = bags_counted_correctly
 
-        # * we update the old "Bags Counted Correctly" key value in "current_volunteer_info" instead of creating a new one
+        # * we also update the old "Bags Counted Correctly" key value in "volunteer_info"
 
         # * iterating over the dictionaries in volunteer_list (that contain previously stored information)
         for volunteer_info in volunteer_list:
@@ -62,10 +64,12 @@ def appendBagsCountedCorrectly(current_volunteer_info, volunteer_name_input, vol
                 volunteer_info["Bags Counted Correctly"] = bags_counted_correctly
                 break
 
-    # * checking if "Bags Counted Correctly" key is not in "current_volunteer_info" (means that it has been previously stored)
+    #!Creating new user data in "current_volunteer_info" if no data about that user has been previously stored
+
+    # ? comes here if "Bags Counted Correctly" key is not in "current_volunteer_info" (means that it has been previously stored)
     else:
 
-        # ? we create a "Bags Counted Correctly" key value
+        # * we create a "Total Bags Weighed" key value in "current_volunteer_info"
         current_volunteer_info.update(
             {"Bags Counted Correctly": bags_counted_correctly})
 
@@ -74,13 +78,15 @@ def appendBagsCountedCorrectly(current_volunteer_info, volunteer_name_input, vol
 
 def appendNumberOfBagsCounted(current_volunteer_info, volunteer_name_input, volunteer_list, bags_counted):
 
-    # * checking if "Total Bags Weighed" key is in "current_volunteer_info" (means that it has been previously stored)
+    #!Updating the user's data in "current_volunteer_info" and "volunteer_info" if the data has been previously stored
+
+    # ? checking if "Total Bags Weighed" key is in "current_volunteer_info" (means that it has been previously stored)
     if "Number of Bags Counted" in current_volunteer_info:
 
         # * updating current_volunteer_info
         current_volunteer_info["Number of Bags Counted"] = bags_counted
 
-        # * we update the old "Number of Bags Counted" key value in "current_volunteer_info" instead of creating a new one
+        # * we also update the old "Number of Bags Counted" key value in "volunteer_info"
 
         # * iterating over the dictionaries in volunteer_list (that contain previously stored information)
         for volunteer_info in volunteer_list:
@@ -92,10 +98,12 @@ def appendNumberOfBagsCounted(current_volunteer_info, volunteer_name_input, volu
                 volunteer_info["Number of Bags Counted"] = bags_counted
                 break
 
-    # * checking if "Total Bags Weighed" key is not in "current_volunteer_info" (means that it has been previously stored)
+    #!Creating new user data in "current_volunteer_info" if no data about that user has been previously stored
+
+    # ? comes here if "Total Bags Weighed" key is not in "current_volunteer_info" (means that it has been previously stored)
     else:
 
-        # ? we create a "Total Bags Weighed" key value
+        # * we create a "Total Bags Weighed" key value in "current_volunteer_info"
         current_volunteer_info.update(
             {"Number of Bags Counted": bags_counted})
 
@@ -107,13 +115,16 @@ def appendNumberOfBagsCounted(current_volunteer_info, volunteer_name_input, volu
 
 def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunteer_list, volunteer_accuracy):
 
-    # * checking if "Volunteer Accuracy (%)" key is in "current_volunteer_info" (means that it has been previously stored)
+    #!Creating new user data in "current_volunteer_info" if no data about that user has been previously stored
+
+    # ? checking if "Volunteer Accuracy (%)" key is in "current_volunteer_info" (means that it has been previously stored)
+
     if "Volunteer Accuracy (%)" in current_volunteer_info:
 
         # * updating current_volunteer_info
         current_volunteer_info["Number of Bags Counted"] = volunteer_accuracy
 
-        # * we update the old "Volunteer Accuracy (%)" key value in "current_volunteer_info" instead of creating a new one
+        # * we update the old "Volunteer Accuracy (%)" key value in "volunteer_info"
 
         # * iterating over the dictionaries in volunteer_list (that contain previously stored information)
         for volunteer_info in volunteer_list:
@@ -125,10 +136,12 @@ def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunt
                 volunteer_info["Number of Bags Counted"] = volunteer_accuracy
                 break
 
+    #!Creating new user data in "current_volunteer_info" if no data about that user has been previously stored
+
     # * checking if "Volunteer Accuracy (%)" key is not in "volunteer_accuracy" (means that it has been previously stored)
     else:
 
-        # ? we create a "Volunteer Accuracy (%)" key value
+        # * we create a "Volunteer Accuracy (%)" key value
         current_volunteer_info.update(
             {"Volunteer Accuracy (%)": volunteer_accuracy})
 
