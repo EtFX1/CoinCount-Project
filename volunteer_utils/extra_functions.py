@@ -1,5 +1,5 @@
 
-
+#! Function to give the user to the option to see the number of bags checked so far
 def viewBagsChecked(bags_value_counter, bags_counted):
     # @! Ask the user if they want to see the number of bags checked (and their total value)
     while True:
@@ -17,3 +17,10 @@ def viewBagsChecked(bags_value_counter, bags_counted):
             continue
 
         return bags_counted, bags_value_counter
+
+
+#! function to specify the criteria with which to sort the list
+def sortBy(dictionary):
+
+    # * the criteria we want to sort with is "Volunteer Accuracy"
+    return dictionary["Volunteer Accuracy (%)"]

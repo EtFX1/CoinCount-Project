@@ -22,6 +22,8 @@ from volunteer_utils.append import appendVolunteerAccuracy
 
 from volunteer_utils.extra_functions import viewBagsChecked
 
+from volunteer_utils.extra_functions import sortBy
+
 
 # from collections import OrderedDict
 
@@ -272,8 +274,12 @@ def weighAnotherBag(bags_value_counter, bags_counted):
     while True:
         print()
 
+        #! Collecting user input
+
         user_response1 = input(
             "Do you want to weigh another bag? (Type a 'Yes' or 'No'): ").title().strip()
+
+        #! Collecting user input for coin type and bag weight again if the user wants to weigh another bag
 
         if user_response1 == "Yes":
             coin_type, bag_value, coin_weight = handleCoinTypeInput()
@@ -285,6 +291,7 @@ def weighAnotherBag(bags_value_counter, bags_counted):
 
             pprint(current_volunteer_info, indent=1)
 
+        #! Exiting loop if user doesn't want to weigh another bag
         elif user_response1 == "No":
             print("Moving on")
             print()
@@ -293,68 +300,40 @@ def weighAnotherBag(bags_value_counter, bags_counted):
             print("Please type in 'Yes' or 'No'")
             continue
 
-    # todo: debug error here
     # *  Calling function that Asks the user if they want to see the number of bags checked (and their total value)
-    print(viewBagsChecked(bags_value_counter, bags_counted))
+    viewBagsChecked(bags_value_counter, bags_counted)
 
     return bags_value_counter, bags_counted
 
 
+# ? storing the return values in variables, so that they can be accessible in every function within the program
 bags_value_counter, bags_counted = weighAnotherBag(
     bags_value_counter, bags_counted)
 
 
-# @! Calculating the user accuracy
+def handleUserAccuracy():
 
-def handleUserAccuracy(current_volunteer_info):
+    # @! Calculating the user accuracy
 
     volunteer_accuracy = round(bags_counted_correctly / bags_counted * 100)
 
     #! Appending the "Volunteer Accuracy (%)" key to the "current_volunteer_info" dictionary
-    current_volunteer_info = appendVolunteerAccuracy(
+    appendVolunteerAccuracy(
         current_volunteer_info, volunteer_name_input, volunteer_list, volunteer_accuracy)
+    pprint(current_volunteer_info, indent=1)
 
     # @! Sorting the volunteer list in descending order
 
-    def sortList():
-        def sortBy(dictionary):
+    # * the key is the "sortBy" function, which specifies that the criteria to sort out the list is with the "Volunteer Accuracy (%) key"
 
-            return dictionary["Volunteer Accuracy (%)"]
-
-        volunteer_list.sort(key=sortBy, reverse=True)
-
-    print(sortList())
+    volunteer_list.sort(key=sortBy, reverse=True)
+    return volunteer_list
 
 
-print(handleUserAccuracy(current_volunteer_info))
+volunteer_list = (handleUserAccuracy())
+print(volunteer_list)
 
 # @! Ask the user if they want to see the number of bags check
-
-
-def addAnotherVolunteer():
-    while True:
-        user_response4 = input(
-            "Do you want to add another volunteer? (Type a 'Yes' or 'No'): ").title().strip()
-        if user_response4 == "Yes":
-            print()
-            print(handleNameInput())
-
-            coin_type, bag_value, coin_weight = handleCoinTypeInput()
-
-            bags_value_counter, bags_counted_correctly, bags_counted = handleBagWeightInput(
-            )
-
-            print(weighAnotherBag())
-
-            print(handleUserAccuracy(current_volunteer_info))
-
-            return (displayFinalList())
-
-        elif user_response4 == "No":
-            return ("Moving on")
-        else:
-            print("Please type in 'Yes' or 'No'")
-            continue
 
 
 def displayFinalList():
@@ -387,3 +366,29 @@ print(displayFinalList())
 # todo: fix bug that doesn't allow the name to be shown when the same user comes back
 # todo: perfect statements
 # todo: add an exit function
+
+
+# def addAnotherVolunteer():
+#     while True:
+#         user_response4 = input(
+#             "Do you want to add another volunteer? (Type a 'Yes' or 'No'): ").title().strip()
+#         if user_response4 == "Yes":
+#             print()
+#             print(handleNameInput())
+
+#             coin_type, bag_value, coin_weight = handleCoinTypeInput()
+
+#             bags_value_counter, bags_counted_correctly, bags_counted = handleBagWeightInput(
+#             )
+
+#             print(weighAnotherBag())
+
+#             print(handleUserAccuracy(current_volunteer_info))
+
+#             return (displayFinalList())
+
+#         elif user_response4 == "No":
+#             return ("Moving on")
+#         else:
+#             print("Please type in 'Yes' or 'No'")
+#             continue
