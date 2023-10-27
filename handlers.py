@@ -2,38 +2,37 @@
 
 from pprint import pprint
 
-from coin_count_handlers.load_coin_count import loadCoinCount
+from file_handlers.load_coin_count import loadCoinCount
 
-from coin_count_handlers.update_coin_count import updateCoinCount
+from file_handlers.update_coin_count import updateCoinCount
 
-from coin_count_handlers.read_from_coin_count import readFromCoinCount
+from file_handlers.read_from_coin_count import readFromCoinCount
 
-from stored.coin_info_list import coins_data
+from stored_data.coin_info_list import coins_data
 
-from volunteer_utils.append import appendVolunteerName
+from handlers_utils.append import appendVolunteerName
 
-from volunteer_utils.append import appendBagsCountedCorrectly
+from handlers_utils.append import appendBagsCountedCorrectly
 
-from volunteer_utils.append import appendNumberOfBagsCounted
+from handlers_utils.append import appendNumberOfBagsCounted
 
-from volunteer_utils.append import appendVolunteerAccuracy
+from handlers_utils.append import appendVolunteerAccuracy
 
-from extra_functions import viewBagsChecked
+from handlers_utils.extra_functions import viewBagsChecked
 
-from extra_functions import sortBy
+from handlers_utils.extra_functions import sortBy
 
 
 def handlers():
-    print("Welcome to the coin counter!")
     print()
 
     print("Previously Stored Data:")
+    print()
     # * text file that stores all the user's information
     print(loadCoinCount())
     print()
 
-    # * stores volunteer's information
-
+    # * data structure to hold all volunteer's information, which is stored in readFromCoinCount()
     volunteer_list = readFromCoinCount()
     print()
     # print(volunteer_list)
@@ -49,11 +48,14 @@ def handlers():
 
             # * collecting the volunteer’s name input
             # todo: ignore the spaces the user types
-            user_input = input("Input volunteer name: ").title().strip()
+            user_input = input(
+                "Input volunteer name (first names only): ").title().strip()
 
             # * verifying that the user types in letters not numbers
             if not user_input.isalpha():
-                print("Please type in an actual name, with letters!")
+                print()
+                print("Name invalid. Try:")
+                print("Typing in a name with letters | Typing in only a first name")
                 print()
                 continue
             else:
@@ -70,14 +72,11 @@ def handlers():
     #! calling handleNameInput()
     volunteer_name_input = handleNameInput()
 
-    # todo: remove later
-    print(current_volunteer_info)
+    # print(current_volunteer_info)
 
     # @! Handling the COIN TYPE INPUT
 
     def handleCoinTypeInput():
-
-        print()
 
         #! Collection of coin type input
         while True:
@@ -250,7 +249,7 @@ def handlers():
     bags_value_counter, bags_counted_correctly, bags_counted = handleBagWeightInput(
         coin_type, bag_value, coin_weight)
 
-    pprint(current_volunteer_info, indent=1)
+    # pprint(current_volunteer_info, indent=1)
 
     # @! Asking the user if they want to weigh another bag
 
@@ -258,6 +257,9 @@ def handlers():
 
         while True:
             print()
+
+            # *  Calling function that Asks the user if they want to see the number of bags checked (and their total value)
+            viewBagsChecked(bags_value_counter, bags_counted)
 
             #! Collecting user input
 
@@ -282,9 +284,6 @@ def handlers():
             else:
                 print("Please type in 'Yes' or 'No'")
                 continue
-
-        # *  Calling function that Asks the user if they want to see the number of bags checked (and their total value)
-        viewBagsChecked(bags_value_counter, bags_counted)
 
         return bags_value_counter, bags_counted
 
@@ -311,15 +310,14 @@ def handlers():
         # * Adding the current_volunteer_info to the final volunteer list
         volunteer_list.append(current_volunteer_info)
 
-        print("handleUserAccuracy function called")
         volunteer_list.sort(key=sortBy, reverse=True)
 
         return volunteer_list
 
     (handleUserAccuracy())
 
-    print("Final Volunteer List:")
-    pprint(volunteer_list, indent=1)
+    # print("Final Volunteer List:")
+    # pprint(volunteer_list, indent=4)
     print()
 
     updateCoinCount(volunteer_list)

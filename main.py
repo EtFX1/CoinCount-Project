@@ -1,86 +1,55 @@
-from handlers import handlers
+"""modules"""
+
 from pprint import pprint
-from collections import OrderedDict
+import sys
+from handlers import handlers
+from file_handlers.read_from_instructions import readFromInstructions
+from file_handlers.load_coin_count import loadCoinCount
+from file_handlers.clear_coin_count import clearCoinCount
 
-print("jazz")
 
-volunteer_list, current_volunteer_info = handlers()
+print()
+print("Welcome to the coin counter!")
+# @! Entry point to the application
 
 
-def displayFinalList():
+def main():
 
-    current_volunteer_info = OrderedDict()
-
+    # * while that runs infinitely
     while True:
 
-        user_response = input(
-            "Do you want see the final volunteer list sorted by accuracy in descending order? (Type a 'Yes' or 'No'): ").title().strip()
+        print()
 
-        #! checks if the user wants to see the final volunteer list or not
-        if user_response == "Yes":
-            print()
-            return pprint(volunteer_list, indent=1)
+        # * prints out instructions
+        readFromInstructions()
+        print()
 
-        #! updating the coinCount.txt file if the user no longer wants to add any more volunteers
-        elif user_response == "No":
-            volunteer_list.append(current_volunteer_info)
-            print("Thank you for using the coin counter app!")
+        valid_responses = ["ADD", "NEW", "DISPLAY",
+                           "VIEW", "CLEAR", "HELP", "EXIT"]
 
-            break
+        # * Getting user response
 
-        else:
-            print("Please type in 'Yes' or 'No'")
+        user_response = input("> ").upper().strip()
+
+        if user_response not in valid_responses:
+            print("Please type in valid response")
             print()
             continue
-
-    # * Updating "CoinCount.txt" file
-    return volunteer_list, current_volunteer_info
-
-
-def addAnotherVolunteer():
-
-    while True:
-        user_response4 = input(
-            "Do you want to add another volunteer? (Type a 'Yes' or 'No'): ").title().strip()
-        if user_response4 == "Yes":
+        if user_response == "ADD" or user_response == "NEW":
             handlers()
-        elif user_response4 == "No":
-            displayFinalList()
-        else:
-            print("Please type in 'Yes' or 'No'")
-            continue
+        if user_response == "DISPLAY" or user_response == "VIEW":
+            print("Clear to clear volunteer list")
+            print()
+            loadCoinCount()
+        if user_response == "CLEAR":
+            clearCoinCount()
+        if user_response == "HELP":
+            readFromInstructions()
+        if user_response == "EXIT":
+            sys.exit(
+                "Thank you for using the Coin Counter App! We appreciate your hard work in counting all the coins.")
 
 
+# todo: make sure you get this explained
 if __name__ == "__main__":
-    addAnotherVolunteer()
-
-displayFinalList()
-
-
-"""
-first volunteer gets added
-volunteer data gets stored in CoinCount.txt
-asks if they want to add another volunteer
-if they do:
-    another volunteer gets added
-    volunteer data gets stored in CoinCount.txt
-if they don't:
-    list displays 
-    volunteer data gets stored in CoinCount.txt
-
-
-steps:
-handling the writing of one volunteer to coin count
-
-handling the writing of >= 2 volunteers to coin count (or adding another volunteer to coin count)
-
-handling updating an already existing volunteer
-"""
-
-# @! Asking the user
-
-
-# todo: fix bug that doesn't allow the name to be shown when the same user comes back
-# todo: perfect statements
-# todo: add an exit function
-# todo: add an option to clear volunteer list
+    main()

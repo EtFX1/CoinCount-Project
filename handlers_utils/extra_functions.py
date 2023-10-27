@@ -1,8 +1,7 @@
 
-# from coin_count_handlers.update_coin_count import updateCoinCount
-
 
 #! Function to give the user to the option to see the number of bags checked so far
+# * Anything outside handlers.py, but relies on handlers.py to work cannot be in here
 
 
 def viewBagsChecked(bags_value_counter, bags_counted):
@@ -15,8 +14,10 @@ def viewBagsChecked(bags_value_counter, bags_counted):
             print()
             print(f"Number of bags checked: {
                 bags_counted} | Total Value: £{bags_value_counter}")
+            print()
         elif user_response2 == "No":
             print("Moving on")
+            print()
         else:
             print("Please type in 'Yes' or 'No'")
             continue
@@ -30,4 +31,4 @@ def sortBy(dictionary):
     # * the criteria we want to sort with is "Volunteer Accuracy"
     return dictionary["Volunteer Accuracy (%)"]
 
-# @! Ask the user if they want to see the final list of volunteers
+# @! Display the final volunteer list for a user
