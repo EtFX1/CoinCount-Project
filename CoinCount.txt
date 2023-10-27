@@ -1,1 +1,0 @@
-[OrderedDict({'Volunteer Name': 'Ethan', 'Bags Counted Correctly': 2, 'Number of Bags Counted': 2, 'Volunteer Accuracy (%)': 50})]
