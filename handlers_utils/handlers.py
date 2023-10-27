@@ -2,6 +2,8 @@
 
 from pprint import pprint
 
+from collections import OrderedDict
+
 from file_handlers.load_coin_count import loadCoinCount
 
 from file_handlers.update_coin_count import updateCoinCount
@@ -18,6 +20,8 @@ from handlers_utils.append import appendNumberOfBagsCounted
 
 from handlers_utils.append import appendVolunteerAccuracy
 
+from handlers_utils.append import updateVolunteerList
+
 from handlers_utils.extra_functions import viewBagsChecked
 
 from handlers_utils.extra_functions import sortBy
@@ -29,7 +33,7 @@ def handlers():
     print("Previously Stored Data:")
     print()
     # * text file that stores all the user's information
-    print(loadCoinCount())
+    loadCoinCount()
     print()
 
     # * data structure to hold all volunteer's information, which is stored in readFromCoinCount()
@@ -38,7 +42,7 @@ def handlers():
     # print(volunteer_list)
 
     # * stores the current volunteer's information
-    current_volunteer_info = {}
+    current_volunteer_info = OrderedDict({})
 
     # @! Handling the VOLUNTEER'S NAME
 
@@ -72,7 +76,7 @@ def handlers():
     #! calling handleNameInput()
     volunteer_name_input = handleNameInput()
 
-    # print(current_volunteer_info)
+    print(current_volunteer_info)
 
     # @! Handling the COIN TYPE INPUT
 
@@ -269,6 +273,7 @@ def handlers():
             #! Collecting user input for coin type and bag weight again if the user wants to weigh another bag
 
             if user_response == "Yes":
+                print()
                 coin_type, bag_value, coin_weight = handleCoinTypeInput()
 
                 # ? [ passing the new variables for coin_type, bag_value, coin_weight explicitly to handleBagWeightInput(), because by default functions access and modify global variables, and the variables above aren't changed globally]
@@ -303,18 +308,18 @@ def handlers():
         appendVolunteerAccuracy(
             current_volunteer_info, volunteer_name_input, volunteer_list, volunteer_accuracy)
 
-        # @! Sorting the volunteer list in descending order
+        updateVolunteerList(volunteer_name_input,
+                            volunteer_list, current_volunteer_info)
+
+        #! Sorting the volunteer list in descending order
 
         # * the key is the "sortBy" function, which specifies that the criteria to sort out the list is with the "Volunteer Accuracy (%) key"
-
-        # * Adding the current_volunteer_info to the final volunteer list
-        volunteer_list.append(current_volunteer_info)
 
         volunteer_list.sort(key=sortBy, reverse=True)
 
         return volunteer_list
 
-    (handleUserAccuracy())
+    handleUserAccuracy()
 
     # print("Final Volunteer List:")
     # pprint(volunteer_list, indent=4)

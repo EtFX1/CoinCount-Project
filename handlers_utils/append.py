@@ -1,4 +1,8 @@
+from pprint import pprint
+from collections import OrderedDict
 # todo: store each in its own separate module
+
+
 def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_input):
     # * checking if volunteer list is empty
     # ? ("[] is a falsy value, so not turns [] to true)
@@ -9,7 +13,7 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
         print(f"Hello {volunteer_name_input}!")
         print()
 
-    # * if volunteer_list is not empty
+    #!Updating the user's data in "current_volunteer_info" and "volunteer_info" if the data has been previously stored
     else:
 
         #
@@ -27,9 +31,13 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
                     f"Welcome back {volunteer_name}! Here is your previous data:")
                 print()
 
+                # * updating current volunteer's name with the value of "Volunteer Name"
+                current_volunteer_info["Volunteer Name"] = volunteer_name
+
                 # * setting the "volunteer_info" in "current_volunteer_info"
                 current_volunteer_info = volunteer_info
-                print(current_volunteer_info)
+                # pprint(OrderedDict(current_volunteer_info), indent=1)
+                print()
 
                 break
             # ? comes here if "volunteer_name_input" is NOT found in volunteer
@@ -149,3 +157,25 @@ def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunt
     print()
 
     return current_volunteer_info
+
+
+#! Updating the final volunteer list
+# todo add comments
+
+def updateVolunteerList(volunteer_name_input, volunteer_list, current_volunteer_info):
+
+    # * iterating over the dictionaries in volunteer_list (that contain previously stored information)
+    for volunteer_info in volunteer_list:
+
+        # * extracting the volunteer's name key-value from each dictionary
+        volunteer_name = volunteer_info["Volunteer Name"]
+
+        #! Updates the user's info if their name is found
+        if volunteer_name == volunteer_name_input:
+            print(volunteer_info)
+            print("new volunteer info")
+            volunteer_info.update(current_volunteer_info)
+        #! comes here if its a new user and just adds new info entirely
+        else:
+            # * Adding the current_volunteer_info to the final volunteer list
+            volunteer_list.append(current_volunteer_info)

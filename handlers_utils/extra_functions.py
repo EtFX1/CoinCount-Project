@@ -30,5 +30,3 @@ def sortBy(dictionary):
 
     # * the criteria we want to sort with is "Volunteer Accuracy"
     return dictionary["Volunteer Accuracy (%)"]
-
-# @! Display the final volunteer list for a user
