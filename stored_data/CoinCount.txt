@@ -6,15 +6,15 @@
         "Volunteer Accuracy (%)": 100
     },
     {
-        "Volunteer Name": "Amy",
+        "Volunteer Name": "Ethan",
         "Bags Counted Correctly": 1,
         "Number of Bags Counted": 1,
         "Volunteer Accuracy (%)": 100
     },
     {
-        "Volunteer Name": "Ethan",
-        "Bags Counted Correctly": 0,
-        "Number of Bags Counted": 1,
-        "Volunteer Accuracy (%)": 0
+        "Volunteer Name": "Frank",
+        "Bags Counted Correctly": 1,
+        "Number of Bags Counted": 2,
+        "Volunteer Accuracy (%)": 50
     }
 ]

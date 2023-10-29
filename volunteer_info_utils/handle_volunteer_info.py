@@ -10,31 +10,20 @@ from file_handlers.update_coin_count import updateCoinCount
 
 from file_handlers.read_from_coin_count import readFromCoinCount
 
+from volunteer_info_utils.append import appendVolunteerName, appendBagsCountedCorrectly, appendNumberOfBagsCounted, appendVolunteerAccuracy, appendCurrentVolunteerInfo
+
+from volunteer_info_utils.extra_functions import viewBagsChecked, sortBy
+
 from stored_data.coin_info_list import coins_data
 
-from handlers_utils.append import appendVolunteerName
 
-from handlers_utils.append import appendBagsCountedCorrectly
-
-from handlers_utils.append import appendNumberOfBagsCounted
-
-from handlers_utils.append import appendVolunteerAccuracy
-
-from handlers_utils.append import updateVolunteerList
-
-from handlers_utils.extra_functions import viewBagsChecked
-
-from handlers_utils.extra_functions import sortBy
-
-
-def handlers():
+def handleVolunteerInfo():
     print()
 
     print("Previously Stored Data:")
     print()
     # * text file that stores all the user's information
     loadCoinCount()
-    print()
 
     # * data structure to hold all volunteer's information, which is stored in readFromCoinCount()
     volunteer_list = readFromCoinCount()
@@ -76,7 +65,7 @@ def handlers():
     #! calling handleNameInput()
     volunteer_name_input = handleNameInput()
 
-    print(current_volunteer_info)
+    # print(current_volunteer_info)
 
     # @! Handling the COIN TYPE INPUT
 
@@ -210,7 +199,7 @@ def handlers():
 
             # * checks if the user has made any errors
             if incorrect_weight_inputs >= 1:
-                print(f"Bag counted incorrectly")
+                print(f"Number of incorrect inputs: {incorrect_weight_inputs}")
 
                 # * Appending the "bags_counted_correctly" variable to "current_volunteer_info" dictionary
                 appendBagsCountedCorrectly(
@@ -308,8 +297,9 @@ def handlers():
         appendVolunteerAccuracy(
             current_volunteer_info, volunteer_name_input, volunteer_list, volunteer_accuracy)
 
-        updateVolunteerList(volunteer_name_input,
-                            volunteer_list, current_volunteer_info)
+        #! Updating the volunteer list with the newest volunteer, to get it ready for sorting
+        appendCurrentVolunteerInfo(volunteer_name_input,
+                                   volunteer_list, current_volunteer_info)
 
         #! Sorting the volunteer list in descending order
 
@@ -323,10 +313,7 @@ def handlers():
 
     # print("Final Volunteer List:")
     # pprint(volunteer_list, indent=4)
-    print()
 
     updateCoinCount(volunteer_list)
 
     return volunteer_list, current_volunteer_info
-
-    # print(volunteer_list)

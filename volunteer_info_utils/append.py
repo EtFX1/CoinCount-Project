@@ -1,6 +1,6 @@
-from pprint import pprint
-from collections import OrderedDict
-# todo: store each in its own separate module
+""" Functions that update data structures with volunteer's information"""
+
+# @! Function to update the "Volunteer Name" key-value
 
 
 def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_input):
@@ -49,7 +49,7 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
     return (current_volunteer_info)
 
 
-# todo (in future): write a function to handle all of these
+# @! Function to update the "Bags Counted Correctly" key-value
 def appendBagsCountedCorrectly(current_volunteer_info, volunteer_name_input, volunteer_list, bags_counted_correctly):
 
     #!Updating the user's data in "current_volunteer_info" and "volunteer_info" if the data has been previously stored
@@ -82,6 +82,8 @@ def appendBagsCountedCorrectly(current_volunteer_info, volunteer_name_input, vol
             {"Bags Counted Correctly": bags_counted_correctly})
 
     return current_volunteer_info
+
+# @! Function to update the "Number of Bags Counted" key-value
 
 
 def appendNumberOfBagsCounted(current_volunteer_info, volunteer_name_input, volunteer_list, bags_counted):
@@ -120,6 +122,8 @@ def appendNumberOfBagsCounted(current_volunteer_info, volunteer_name_input, volu
 
     return current_volunteer_info
 
+# @! Function to update the "Volunteer Accuracy (%)" key-value
+
 
 def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunteer_list, volunteer_accuracy):
 
@@ -130,7 +134,7 @@ def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunt
     if "Volunteer Accuracy (%)" in current_volunteer_info:
 
         # * updating current_volunteer_info
-        current_volunteer_info["Number of Bags Counted"] = volunteer_accuracy
+        current_volunteer_info["Volunteer Accuracy (%)"] = volunteer_accuracy
 
         # * we update the old "Volunteer Accuracy (%)" key value in "volunteer_info"
 
@@ -141,7 +145,7 @@ def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunt
             if volunteer_info["Volunteer Name"] == volunteer_name_input:
 
                 # * setting the "Number of Bags Counted" key to the "volunteer_accuracy" variable
-                volunteer_info["Number of Bags Counted"] = volunteer_accuracy
+                volunteer_info["Volunteer Accuracy (%)"] = volunteer_accuracy
                 break
 
     #!Creating new user data in "current_volunteer_info" if no data about that user has been previously stored
@@ -158,24 +162,46 @@ def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunt
 
     return current_volunteer_info
 
+# @! Function to update the volunteer_info list before CoinCount.txt gets updated
 
-#! Updating the final volunteer list
-# todo add comments
 
-def updateVolunteerList(volunteer_name_input, volunteer_list, current_volunteer_info):
+def appendCurrentVolunteerInfo(volunteer_name_input, volunteer_list, current_volunteer_info):
 
-    # * iterating over the dictionaries in volunteer_list (that contain previously stored information)
-    for volunteer_info in volunteer_list:
+    #! Code that runs if "volunteer_list" is empty
 
-        # * extracting the volunteer's name key-value from each dictionary
-        volunteer_name = volunteer_info["Volunteer Name"]
+    if not volunteer_list:
 
-        #! Updates the user's info if their name is found
-        if volunteer_name == volunteer_name_input:
-            print(volunteer_info)
-            print("new volunteer info")
-            volunteer_info.update(current_volunteer_info)
-        #! comes here if its a new user and just adds new info entirely
-        else:
-            # * Adding the current_volunteer_info to the final volunteer list
-            volunteer_list.append(current_volunteer_info)
+        # * updating the volunteer_list with "updated_volunteer_list"s
+        volunteer_list.append(current_volunteer_info)
+
+    #! Code that runs if  "volunteer_list" is not empty
+    else:
+
+        # ? empty list for updated volunteer information to avoid updating volunteer list during iteration
+        updated_volunteer_list = {}
+
+        # * iterating over each dictionary in "volunteer_list"
+        for volunteer_info in volunteer_list:
+
+            # * storing the "Volunteer Name" key-value in a variable for easier access
+            volunteer_name = volunteer_info["Volunteer Name"]
+
+            #! code that runs if the volunteer has previously stored their data (and it needs to be updated)
+
+            # ? checking if the previously stored "volunteer_name" matches the current "volunteer_name_input"
+            if volunteer_name == volunteer_name_input:
+
+                # * update the "volunteer_info" with the new information if their name is found
+                volunteer_info.update(current_volunteer_info)
+
+                # *  Update the "updated_volunteer_list" to avoid modifying "volunteer_list directly"
+                updated_volunteer_list.update(volunteer_info)
+
+            #! code that runs if the volunteer's name was not found in volunteer_list, and their data was not previously stored (new data has be created)
+            else:
+
+                # * Update the "updated_volunteer_list" to avoid modifying "volunteer_list directly"
+                updated_volunteer_list.update(current_volunteer_info)
+
+        # * updating the volunteer_list with "updated_volunteer_list"
+        volunteer_list.append(updated_volunteer_list)

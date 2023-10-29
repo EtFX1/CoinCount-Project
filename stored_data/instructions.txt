@@ -1,3 +1,4 @@
+Instructions:
 Type in "ADD" or "NEW" to add a new volunteer
 Type in "DISPLAY" or "VIEW" to view volunteer list
 Type in "CLEAR" to clear the volunteer list

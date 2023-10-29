@@ -1,3 +1,4 @@
+"""Stores all the data for each type of coin (Coin Type, Bag Value, Coin Weight)"""
 coins_data = [
     {
         "Coin Type (£)": 0.01,

@@ -1,4 +1,4 @@
-"""copies the contents of "CoinCount.txt" to the "volunteer_list" list (CoinCount.txt is not empty)"""
+"""copies the contents of "CoinCount.txt" to the "volunteer_list" list (only if CoinCount.txt is not empty)"""
 import os
 import json
 

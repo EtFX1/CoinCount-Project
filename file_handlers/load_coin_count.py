@@ -1,4 +1,4 @@
-"""CoinCount.txt contains all user data """
+"""Loads (displays) CoinCount.txt"""
 import os
 
 

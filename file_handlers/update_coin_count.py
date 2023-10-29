@@ -1,6 +1,5 @@
+"""Updates CoinCount.txt with the contents of volunteer_list """
 import json
-#! Reading from CoinCount.txt
-# * """Updates CoinCount.txt with the contents of volunteer_list """
 
 
 def updateCoinCount(volunteer_list):

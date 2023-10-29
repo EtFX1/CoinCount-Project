@@ -1,11 +1,10 @@
 
 
-#! Function to give the user to the option to see the number of bags checked so far
-# * Anything outside handlers.py, but relies on handlers.py to work cannot be in here
-
+# @! Function to give the user to the option to see the number of bags checked so far (and their total value)
+# Any function outside handle_volunteer_info.py, but it relies on handlers.py to work cannot be in here
 
 def viewBagsChecked(bags_value_counter, bags_counted):
-    # @! Ask the user if they want to see the number of bags checked (and their total value)
+    # * Ask the user if they want to see the number of bags checked (and their total value)
     while True:
         user_response2 = input(
             "Do you want see the number of bags checked so far and their total value (Type a 'Yes' or 'No')?: ").title().strip()
