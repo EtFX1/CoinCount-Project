@@ -1,8 +1,8 @@
 [
     {
         "Volunteer Name": "Ethan",
-        "Bags Counted Correctly": 1,
+        "Bags Counted Correctly": 0,
         "Number of Bags Counted": 1,
-        "Volunteer Accuracy (%)": 100
+        "Volunteer Accuracy (%)": 0
     }
 ]

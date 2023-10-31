@@ -249,7 +249,7 @@ def handleVolunteerInfo(volunteer_list):
 
     # @! Asking the user if they want to weigh another bag
 
-    def weighAnotherBag(bags_value_counter, bags_counted):
+    def weighAnotherBag(bags_value_counter, bags_counted, bags_counted_correctly):
 
         # print()
 
@@ -268,7 +268,6 @@ def handleVolunteerInfo(volunteer_list):
                 # ? [ passing the new variables for coin_type, bag_value, coin_weight explicitly to handleBagWeightInput(), because by default functions access and modify global variables, and the variables above aren't changed globally]
                 bags_value_counter, bags_counted_correctly, bags_counted = handleBagWeightInput(
                     coin_type, bag_value, coin_weight)
-                print()
 
                 # *  Calling function that Asks the user if they want to see the number of bags checked (and their total value)
                 viewBagsChecked(bags_value_counter, bags_counted)
@@ -284,11 +283,11 @@ def handleVolunteerInfo(volunteer_list):
                 print()
                 continue
 
-        return bags_value_counter, bags_counted
+        return bags_value_counter, bags_counted, bags_counted_correctly
 
     # ? storing the return values in variables, so that they can be accessible in every function within the program
-    bags_value_counter, bags_counted = weighAnotherBag(
-        bags_value_counter, bags_counted)
+    bags_value_counter, bags_counted, bags_counted_correctly = weighAnotherBag(
+        bags_value_counter, bags_counted, bags_counted_correctly)
 
     print("next function")
 
@@ -297,6 +296,8 @@ def handleVolunteerInfo(volunteer_list):
     def handleUserAccuracy():
 
         # @! Calculating the user accuracy
+
+        # todo: bug: when the user gets it wrong the first time, and right the second time, volunteer accuracy = 0% instead of 50%
 
         volunteer_accuracy = round(bags_counted_correctly / bags_counted * 100)
 
@@ -316,14 +317,11 @@ def handleVolunteerInfo(volunteer_list):
 
         return volunteer_accuracy
 
-    print(handleUserAccuracy())
+    handleUserAccuracy()
 
     # print("Final Volunteer List:")
     # pprint(volunteer_list, indent=4)
 
     updateCoinCount(volunteer_list)
-
-    # if volunteer_counter == 6:
-    #     print("Maximum number of volunteers has been added")
 
     return volunteer_list

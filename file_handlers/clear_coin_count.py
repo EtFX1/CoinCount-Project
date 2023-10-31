@@ -12,6 +12,9 @@ def clearCoinCount():
         if response == "Yes":
             with open("stored_data/CoinCount.txt", "r+", encoding="utf-8") as file_handler:
                 file_handler.truncate(0)
+
+                print()
+                print("Coin Count Cleared")
                 break
 
         # * goes back to the options if the user doesn't want to delete the data in coin count.txt

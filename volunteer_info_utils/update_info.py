@@ -174,19 +174,18 @@ def appendVolunteerAccuracy(current_volunteer_info, volunteer_name_input, volunt
 
 
 def appendCurrentVolunteerInfo(volunteer_name_input, volunteer_list, current_volunteer_info):
-
-    #! Code that runs if "volunteer_list" is empty
+    #! Creates new user data that runs if "volunteer_list" is empty
 
     if not volunteer_list:
 
-        # * updating the volunteer_list with "updated_volunteer_list"s
+        # * updating the "volunteer_list" with "updated_volunteer_list"s
         volunteer_list.append(current_volunteer_info)
 
-    #! Code that runs if  "volunteer_list" is not empty
+    #!  Comes here if "volunteer_list" is not empty
     else:
 
-        # ? empty list for updated volunteer information to avoid updating volunteer list during iteration
-        updated_volunteer_list = {}
+        # ? Creating a copy of "volunteer_list" so that we don't modify the original list as we are iterating over it
+        volunteer_list_copy = volunteer_list[:]
 
         # * iterating over each dictionary in "volunteer_list"
         for volunteer_info in volunteer_list:
@@ -194,22 +193,18 @@ def appendCurrentVolunteerInfo(volunteer_name_input, volunteer_list, current_vol
             # * storing the "Volunteer Name" key-value in a variable for easier access
             volunteer_name = volunteer_info["Volunteer Name"]
 
-            #! code that runs if the volunteer has previously stored their data (and it needs to be updated)
+            #! updates a previous user's data
 
             # ? checking if the previously stored "volunteer_name" matches the current "volunteer_name_input"
             if volunteer_name == volunteer_name_input:
 
-                # * update the "volunteer_info" with the new information if their name is found
+                # * update the "volunteer_info" with the new information (current_volunteer_info) if their name is found
                 volunteer_info.update(current_volunteer_info)
-
-                # *  Update the "updated_volunteer_list" to avoid modifying "volunteer_list directly"
-                updated_volunteer_list.update(volunteer_info)
 
             #! code that runs if the volunteer's name was not found in volunteer_list, and their data was not previously stored (new data has be created)
             else:
+                volunteer_list.append(current_volunteer_info)
 
-                # * Update the "updated_volunteer_list" to avoid modifying "volunteer_list directly"
-                updated_volunteer_list.update(current_volunteer_info)
+        volunteer_list = volunteer_list_copy
 
-            # * updating the volunteer_list with "updated_volunteer_list"
-            volunteer_list.append(updated_volunteer_list)
+    return volunteer_list
