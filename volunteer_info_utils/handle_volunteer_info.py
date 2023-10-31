@@ -289,8 +289,6 @@ def handleVolunteerInfo(volunteer_list):
     bags_value_counter, bags_counted, bags_counted_correctly = weighAnotherBag(
         bags_value_counter, bags_counted, bags_counted_correctly)
 
-    print("next function")
-
     # @! Handling user accuracy
 
     def handleUserAccuracy():

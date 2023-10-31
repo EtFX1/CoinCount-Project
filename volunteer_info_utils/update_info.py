@@ -181,7 +181,7 @@ def appendCurrentVolunteerInfo(volunteer_name_input, volunteer_list, current_vol
         # * updating the "volunteer_list" with "updated_volunteer_list"s
         volunteer_list.append(current_volunteer_info)
 
-    #!  Comes here if "volunteer_list" is not empty
+    #!  Comes here if  "volunteer_list" is not empty
     else:
 
         # ? Creating a copy of "volunteer_list" so that we don't modify the original list as we are iterating over it
@@ -204,7 +204,8 @@ def appendCurrentVolunteerInfo(volunteer_name_input, volunteer_list, current_vol
             #! code that runs if the volunteer's name was not found in volunteer_list, and their data was not previously stored (new data has be created)
             else:
                 volunteer_list.append(current_volunteer_info)
+                break
 
-        volunteer_list = volunteer_list_copy
+        # volunteer_list = volunteer_list_copy
 
     return volunteer_list
