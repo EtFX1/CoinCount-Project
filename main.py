@@ -1,17 +1,30 @@
 """modules"""
 
 import sys
+
 from volunteer_info_utils.handle_volunteer_info import handleVolunteerInfo
+
 from file_handlers.read_from_instructions import readFromInstructions
+
 from file_handlers.load_coin_count import loadCoinCount
+
 from file_handlers.clear_coin_count import clearCoinCount
+
+from file_handlers.read_from_coin_count import readFromCoinCount
 
 
 print()
 print("Welcome to the coin counter!")
 
+# * data structure to hold all volunteer's information, which is stored in readFromCoinCount()
+volunteer_list = readFromCoinCount()
+print(len(volunteer_list))
+print()
+
 
 # @! Entry point to the application
+
+
 def main():
 
     print()
@@ -20,7 +33,7 @@ def main():
     readFromInstructions()
 
     # * while that runs infinitely (to allow the user add as many volunteers as they want)
-    while True:
+    while len(volunteer_list) < 6:
 
         print("\n")
 
@@ -39,7 +52,8 @@ def main():
 
         # * allows a user to add a new volunteer
         if user_response == "ADD" or user_response == "NEW":
-            handleVolunteerInfo()
+            print()
+            handleVolunteerInfo(volunteer_list)
 
         # * allows a user to see "CoinCount.txt"
         if user_response == "DISPLAY" or user_response == "VIEW":
@@ -59,6 +73,8 @@ def main():
         if user_response == "EXIT":
             sys.exit(
                 "Thank you for using the Coin Counter App! We appreciate your hard work in counting all the coins.")
+
+    print("Volunteer list full")
 
 
 # todo: make sure you get this explained

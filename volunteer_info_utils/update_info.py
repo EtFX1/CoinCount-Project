@@ -1,12 +1,16 @@
 """ Functions that update data structures with volunteer's information"""
 
+from pprint import pprint
+
 # @! Function to update the "Volunteer Name" key-value
 
 
 def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_input):
-    # * checking if volunteer list is empty
+
+    # ! code that runs if volunteer list is empty
     # ? ("[] is a falsy value, so not turns [] to true)
     if not volunteer_list:
+        print()
 
         # * creating a dictionary to store information for a new user
         current_volunteer_info.update({"Volunteer Name": volunteer_name_input})
@@ -16,9 +20,9 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
     #!Updating the user's data in "current_volunteer_info" and "volunteer_info" if the data has been previously stored
     else:
 
-        #
         # * iterating over the dictionaries in volunteer_list (that contain previously stored information)
-        for volunteer_info in volunteer_list:
+        for i, volunteer_info in enumerate(volunteer_list, 1):
+            volunteer_count = i
 
             # * extracting the volunteer's name key-value from each dictionary
             volunteer_name = volunteer_info["Volunteer Name"]
@@ -28,25 +32,29 @@ def appendVolunteerName(current_volunteer_info, volunteer_list, volunteer_name_i
 
                 # * greeting the user and showing them their previously stored data
                 print(
-                    f"Welcome back {volunteer_name}! Here is your previous data:")
+                    f"Welcome back {volunteer_name}! You are volunteer {volunteer_count}. Here is your previous data:")
                 print()
+                pprint(volunteer_info, indent=1)
 
                 # * updating current volunteer's name with the value of "Volunteer Name"
                 current_volunteer_info["Volunteer Name"] = volunteer_name
 
                 # * setting the "volunteer_info" in "current_volunteer_info"
                 current_volunteer_info = volunteer_info
-                # pprint(OrderedDict(current_volunteer_info), indent=1)
                 print()
 
                 break
-            # ? comes here if "volunteer_name_input" is NOT found in volunteer
-            else:
 
-                # * creating a dictionary to store information for a new user
-                current_volunteer_info["Volunteer Name"] = volunteer_name_input
+        else:
+            print(f"Hello {volunteer_name_input}! You are volunteer {
+                  volunteer_count + 1}")
+            print()
 
-    return (current_volunteer_info)
+            # * creating a dictionary to store the new user's name
+            current_volunteer_info.update(
+                {"Volunteer Name": volunteer_name_input})
+
+    return current_volunteer_info
 
 
 # @! Function to update the "Bags Counted Correctly" key-value
@@ -203,5 +211,5 @@ def appendCurrentVolunteerInfo(volunteer_name_input, volunteer_list, current_vol
                 # * Update the "updated_volunteer_list" to avoid modifying "volunteer_list directly"
                 updated_volunteer_list.update(current_volunteer_info)
 
-        # * updating the volunteer_list with "updated_volunteer_list"
-        volunteer_list.append(updated_volunteer_list)
+            # * updating the volunteer_list with "updated_volunteer_list"
+            volunteer_list.append(updated_volunteer_list)

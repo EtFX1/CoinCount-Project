@@ -19,6 +19,7 @@ def viewBagsChecked(bags_value_counter, bags_counted):
             print()
         else:
             print("Please type in 'Yes' or 'No'")
+            print()
             continue
 
         return bags_counted, bags_value_counter
