@@ -1,9 +1,8 @@
 """Clears the contents of coinCount.txt with user's permission"""
-
 #! Function to delete the contents of coinCount.txt
 
 
-def clearCoinCount():
+def clearCoinCount(volunteer_list):
     while True:
         response = input(
             "Are you sure you want to clear the volunteer list? (Type a 'Yes' or 'No'): ").strip().title()
@@ -11,8 +10,8 @@ def clearCoinCount():
         # * deletes the data in CoinCount.txt if the user confirms it
         if response == "Yes":
             with open("stored_data/CoinCount.txt", "r+", encoding="utf-8") as file_handler:
+                volunteer_list.clear()
                 file_handler.truncate(0)
-
                 print()
                 print("Coin Count Cleared")
                 break

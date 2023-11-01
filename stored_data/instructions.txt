@@ -2,5 +2,6 @@ Instructions:
 Type in "ADD" or "NEW" to add a new volunteer
 Type in "DISPLAY" or "VIEW" to view volunteer list
 Type in "CLEAR" to clear the volunteer list
+Type in "DELETE" to delete a volunteer's name
 Type in "HELP" to view these instructions
 Type in "EXIT" to exit the program

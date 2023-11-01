@@ -1,1 +1,1 @@
-__all__ = ["append", "extra_functions"]
+__all__ = ["extra_functions", "handle_volunteer_info", "update_info"]
