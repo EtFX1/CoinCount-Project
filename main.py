@@ -14,7 +14,7 @@ from file_handlers.read_from_coin_count import readFromCoinCount
 
 
 print()
-print("Welcome to the coin counter!")
+print("Welcome to the coin counter!!")
 
 
 # @! Entry point to the application
